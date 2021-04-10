@@ -37,47 +37,21 @@ var connection = mysql.createConnection({
         connection.query(`INSERT INTO link (Name, url, Place, Color) VALUES ("${name}", "${url}", "${place}", "${color}")`, function (error, results, fields) {
             if (error) throw error;
             console.log("results => ", results);
-            console.log("fields => ", fields);
             console.log("Data added successfully");
           });
       })
   })
 
-  connection.query(`SELECT * FROM link`, function (error, results, fields) {
-    if (error) throw error;
-    console.log("results => ", results);
-    // console.log("fields => ", fields);
-  });
-
-app.get("/all", (req, res) => {
-    connection.query(`INSERT INTO link (Name, url, Place, Color) VALUES ("${name}", "${url}", "${place}", "${color}")`, function (error, results, fields) {
+  app.get("/get/all", (req, res) => {
+    connection.query(`SELECT * FROM link`, function (error, results, fields) {
         if (error) throw error;
         console.log("results => ", results);
-        console.log("fields => ", fields);
-        console.log("Data added successfully");
+        res.send(results);
       });
-})
+  })
 
 app.get("/getlink/:linkId", (req, res) => {
     res.send("To be continued...");
-})
-
-app.post("/add/link", (req, res) => {
-    Link.create(
-        {
-            link: req.body.link,
-            name: req.body.name,
-            color: req.body.color,
-            places: req.body.color
-        },
-        function(err, newLink){
-            if(err){
-                res.send("Unable to create Link");
-            }else{
-                res.send("New Link created");
-            }
-        }
-    )
 })
 
 app.listen(5000, () => {
