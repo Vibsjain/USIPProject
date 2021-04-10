@@ -17,12 +17,12 @@ const MainForm = () => {
     const checkedBoxes = document.querySelectorAll('input[type=checkbox]:checked');
     setForm({...form, places: checkedBoxes});
     console.log(form);
+    console.log(JSON.stringify(form));
     let url = "http://localhost:5000/add/link";
     await fetch(url, {
       method: "POST",
       mode: "cors",
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
